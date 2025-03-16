@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b06tc2uoc0kn1"]
+
+[node name="DialogueEditor" type="CenterContainer"]
+offset_left = 364.0
+offset_top = -228.0
+offset_right = 1516.0
+offset_bottom = -228.0
+size_flags_horizontal = 3
+
+[node name="DialogueCreatorMainWindow" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow"]
+layout_mode = 2
+text = "DIALOGUE CREATOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="DialogueCreatorMainWindow"]
+layout_mode = 2
+
+[node name="NewDialogue" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+layout_mode = 2
+text = "+ New Dialogue
+"
+
+[node name="AddTextButton" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+layout_mode = 2
+text = "+ Add Text Bit"
+
+[node name="AddTransitionButton" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+layout_mode = 2
+text = "+ Add Transition Bit"
+
+[node name="DialogueData" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
+layout_mode = 2
+
+[node name="TitleContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleEditText" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.58
+
+[node name="FilenameContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/FilenameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Filename"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FileNameTextEdit" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/FilenameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.58
