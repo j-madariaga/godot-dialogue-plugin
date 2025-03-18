@@ -1,6 +1,7 @@
 @tool
-class_name TextEntryObj
+class_name DialogueSpriteEntry
 extends TextureRect
+
 
 func OnMoveUp():
 	var childIdx = get_index();

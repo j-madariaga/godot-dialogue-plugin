@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvyrp7ip4aw88"]
+[gd_scene load_steps=6 format=3 uid="uid://b1b7io78sbl6b"]
 
-[ext_resource type="Script" path="res://addons/src/scripts/DialogueTextEntry.gd" id="1_ebg2r"]
+[ext_resource type="Script" path="res://addons/src/scripts/DialogueTransitionEntry.gd" id="1_bc4id"]
 
 [sub_resource type="Gradient" id="Gradient_jsg8m"]
 offsets = PackedFloat32Array(0.558442)
@@ -19,7 +19,7 @@ colors = PackedColorArray(0.255659, 0.255659, 0.255659, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_isuox"]
 gradient = SubResource("Gradient_fyu02")
 
-[node name="DialogueTextEntry" type="TextureRect"]
+[node name="DialogueTransitionEntry" type="TextureRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_b46qh")
 stretch_mode = 2
-script = ExtResource("1_ebg2r")
+script = ExtResource("1_bc4id")
 
 [node name="Background2" type="TextureRect" parent="."]
 layout_mode = 0
@@ -51,67 +51,103 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 text = "DELETE"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="GeneralData" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 19.0
 offset_right = 713.0
 offset_bottom = 251.0
 
-[node name="SpeakerInput" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Background" type="HBoxContainer" parent="GeneralData"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.35
+size_flags_stretch_ratio = 17.4
 
-[node name="TextTag" type="Label" parent="VBoxContainer/SpeakerInput"]
+[node name="TextTag" type="Label" parent="GeneralData/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 theme_override_font_sizes/font_size = 24
-text = "Speaker name"
+text = "Background"
 
-[node name="TextInput" type="LineEdit" parent="VBoxContainer/SpeakerInput"]
+[node name="TextInput" type="LineEdit" parent="GeneralData/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.57
 placeholder_text = "Text"
 
-[node name="SpeakerRightToggle" type="CheckButton" parent="VBoxContainer/SpeakerInput"]
+[node name="BGVisibleToggle" type="CheckButton" parent="GeneralData/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
 theme_override_font_sizes/font_size = 24
-text = "Right side speaker?"
+text = "Visible?"
 
-[node name="TextInput" type="VBoxContainer" parent="VBoxContainer"]
+[node name="TransitionSection" type="HBoxContainer" parent="GeneralData"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.51
+size_flags_stretch_ratio = 0.0
 
-[node name="TextTag" type="Label" parent="VBoxContainer/TextInput"]
+[node name="TransitionType" type="Label" parent="GeneralData/TransitionSection"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 1.51
 theme_override_font_sizes/font_size = 24
-text = "Dialogue text"
+text = "Transition"
 vertical_alignment = 1
 
-[node name="TextInput" type="TextEdit" parent="VBoxContainer/TextInput"]
+[node name="TransitionDropdown" type="OptionButton" parent="GeneralData/TransitionSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.69
+item_count = 3
+popup/item_0/text = "Static"
+popup/item_0/id = 0
+popup/item_1/text = "Fade to black"
+popup/item_1/id = 1
+popup/item_2/text = "Fade from black"
+popup/item_2/id = 2
+
+[node name="Offset" type="Label" parent="GeneralData/TransitionSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.52
+
+[node name="DurationSection" type="HBoxContainer" parent="GeneralData"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.08
+
+[node name="DurationTag" type="Label" parent="GeneralData/DurationSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.77
+theme_override_font_sizes/font_size = 24
+text = "Duration"
+vertical_alignment = 1
+
+[node name="DurationInput" type="LineEdit" parent="GeneralData/DurationSection"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.75
-placeholder_text = "text"
-wrap_mode = 1
+alignment = 1
+
+[node name="Offset" type="Label" parent="GeneralData/DurationSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.1
 
 [node name="BoxControl" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 998.0
-offset_top = 87.0
-offset_right = 1058.0
-offset_bottom = 267.0
-scale = Vector2(0.96, 0.879999)
+offset_left = 991.0
+offset_top = 83.0
+offset_right = 1051.0
+offset_bottom = 263.0
+scale = Vector2(1, 0.88)
 
 [node name="MoveUpButton" type="Button" parent="BoxControl"]
 layout_mode = 2

@@ -6,7 +6,8 @@ extends Control
 
 const OUTPUT_PATH = "res://addons/output/";
 const TEXT_BIT_ARCH = preload("res://addons/src/scenes/DialogueTextEntry.tscn");
-
+const SPRITE_BIT_ARCH = preload("res://addons/src/scenes/DialogueSpriteEntry.tscn");
+const TRANS_BIT_ARCH = preload("res://addons/src/scenes/DialogueTransitionEntry.tscn");
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	dialogueDataScreen.visible = false;
@@ -37,6 +38,13 @@ func AddTextBit():
 	dialogueBitList.add_child(newTextBit);
 	pass;
 	
+func AddSpriteBit():
+	print("New sprite bit created");
+	var newSpriteBit = SPRITE_BIT_ARCH.instantiate();
+	dialogueBitList.add_child(newSpriteBit);
+	
 func AddTransitionBit():
 	print("New transition bit added");
+	var newTransBit = TRANS_BIT_ARCH.instantiate();
+	dialogueBitList.add_child(newTransBit);
 	pass;
