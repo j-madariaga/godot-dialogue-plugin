@@ -1,39 +1,59 @@
-[gd_scene format=3 uid="uid://b06tc2uoc0kn1"]
+[gd_scene load_steps=3 format=3 uid="uid://b06tc2uoc0kn1"]
 
-[node name="DialogueEditor" type="CenterContainer"]
-offset_left = 364.0
-offset_top = -228.0
-offset_right = 1516.0
-offset_bottom = -228.0
+[ext_resource type="Script" path="res://addons/src/scripts/DialogueCreator_MainWindow.gd" id="1_wfgnh"]
+
+[sub_resource type="Theme" id="Theme_6df5w"]
+default_font_size = 24
+
+[node name="DialogueEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 1095.0
+offset_bottom = 659.0
 size_flags_horizontal = 3
+script = ExtResource("1_wfgnh")
 
 [node name="DialogueCreatorMainWindow" type="VBoxContainer" parent="."]
 layout_mode = 2
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 1150.0
+offset_bottom = 654.0
+theme = SubResource("Theme_6df5w")
 
 [node name="Label" type="Label" parent="DialogueCreatorMainWindow"]
 layout_mode = 2
+theme = SubResource("Theme_6df5w")
 text = "DIALOGUE CREATOR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="DialogueCreatorMainWindow"]
+[node name="GeneralButtons" type="HBoxContainer" parent="DialogueCreatorMainWindow"]
 layout_mode = 2
 
-[node name="NewDialogue" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+[node name="NewDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
 layout_mode = 2
+theme = SubResource("Theme_6df5w")
 text = "+ New Dialogue
 "
 
-[node name="AddTextButton" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+[node name="ImportDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
 layout_mode = 2
-text = "+ Add Text Bit"
+theme = SubResource("Theme_6df5w")
+text = "Import Dialogue file
+"
 
-[node name="AddTransitionButton" type="Button" parent="DialogueCreatorMainWindow/Buttons"]
+[node name="SaveDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
 layout_mode = 2
-text = "+ Add Transition Bit"
+theme = SubResource("Theme_6df5w")
+text = "Save Dialogue file
+"
 
 [node name="DialogueData" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="TitleContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
 layout_mode = 2
@@ -41,6 +61,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_6df5w")
 text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -49,6 +70,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.58
+theme = SubResource("Theme_6df5w")
 
 [node name="FilenameContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
 layout_mode = 2
@@ -56,6 +78,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/FilenameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_6df5w")
 text = "Filename"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -64,3 +87,39 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.58
+theme = SubResource("Theme_6df5w")
+
+[node name="BitManager" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+layout_mode = 2
+
+[node name="AddTextButton" type="Button" parent="DialogueCreatorMainWindow/DialogueData/BitManager"]
+layout_mode = 2
+theme = SubResource("Theme_6df5w")
+text = "+ Add Text Bit"
+
+[node name="AddTransitionButton" type="Button" parent="DialogueCreatorMainWindow/DialogueData/BitManager"]
+layout_mode = 2
+theme = SubResource("Theme_6df5w")
+text = "+ Add Transition Bit"
+
+[node name="DialogueBits" type="Panel" parent="DialogueCreatorMainWindow/DialogueData"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BitScroll" type="ScrollContainer" parent="DialogueCreatorMainWindow/DialogueData/DialogueBits"]
+layout_mode = 0
+offset_right = 1147.0
+offset_bottom = 442.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="BitList" type="VBoxContainer" parent="DialogueCreatorMainWindow/DialogueData/DialogueBits/BitScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/NewDialogue" to="." method="OnNewDialogue"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/ImportDialogue" to="." method="OnDialogueImport"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/SaveDialogue" to="." method="OnDialogueSave"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTextButton" to="." method="AddTextBit"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTransitionButton" to="." method="AddTransitionBit"]
