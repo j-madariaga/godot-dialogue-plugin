@@ -1,12 +1,7 @@
 class_name DialogueFile
 extends Resource
 
-var dialogueTitle : String;
-var dialogueFileName : String;
-var dialogueBits := []
-
-func Save():
-	pass;
-	
-func Load():
-	pass;
+@export var dialogueTitle : String;
+@export var dialogueFileName : String;
+@export var triggerChance : int = 100;
+@export var dialogueBits := []

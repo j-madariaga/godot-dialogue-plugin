@@ -1,9 +1,5 @@
-class_name DialogueTextBit
+class_name DialogueSpriteBit
 extends Resource
-
-var speakerName : String;
-var speakerRightSide : bool;
-var dialogueText : String;
 
 var charSprites : Array[Texture2D] = [];
 var spriteUpdated : Array[bool] = [];

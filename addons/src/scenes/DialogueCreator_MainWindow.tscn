@@ -8,43 +8,48 @@ default_font_size = 24
 [node name="DialogueEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1094.0
+offset_right = 1154.0
 offset_bottom = 663.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_wfgnh")
 
-[node name="DialogueCreatorMainWindow" type="VBoxContainer" parent="."]
+[node name="DialogueCreatorMainWindow" type="HBoxContainer" parent="."]
 layout_mode = 2
 offset_left = 3.0
 offset_top = 1.0
-offset_right = 652.0
-offset_bottom = 207.0
+offset_right = 1538.0
+offset_bottom = 864.0
+scale = Vector2(0.75, 0.75)
 theme = SubResource("Theme_6df5w")
 
-[node name="Label" type="Label" parent="DialogueCreatorMainWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "DIALOGUE CREATOR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GeneralButtons" type="HBoxContainer" parent="DialogueCreatorMainWindow"]
+[node name="GeneralButtons" type="HBoxContainer" parent="DialogueCreatorMainWindow/VBoxContainer"]
 layout_mode = 2
 
-[node name="NewDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
+[node name="NewDialogue" type="Button" parent="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "+ New Dialogue
 "
 
-[node name="ImportDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
+[node name="ImportDialogue" type="Button" parent="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "Import Dialogue file
 "
 
-[node name="SaveDialogue" type="Button" parent="DialogueCreatorMainWindow/GeneralButtons"]
+[node name="SaveDialogue" type="Button" parent="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "Save Dialogue file
@@ -52,7 +57,9 @@ text = "Save Dialogue file
 
 [node name="DialogueData" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.44
 
 [node name="TitleContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
 layout_mode = 2
@@ -69,6 +76,20 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.58
+theme = SubResource("Theme_6df5w")
+
+[node name="Label2" type="Label" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6df5w")
+text = "Trigger chance (%)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TriggerChanceInput" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.53
 theme = SubResource("Theme_6df5w")
 
 [node name="FilenameContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
@@ -112,8 +133,8 @@ size_flags_vertical = 3
 
 [node name="BitScroll" type="ScrollContainer" parent="DialogueCreatorMainWindow/DialogueData/DialogueBits"]
 layout_mode = 0
-offset_right = 652.0
-offset_bottom = 442.0
+offset_right = 879.0
+offset_bottom = 741.0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
@@ -122,9 +143,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/NewDialogue" to="." method="OnNewDialogue"]
-[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/ImportDialogue" to="." method="OnDialogueImport"]
-[connection signal="button_up" from="DialogueCreatorMainWindow/GeneralButtons/SaveDialogue" to="." method="OnDialogueSave"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/NewDialogue" to="." method="OnNewDialogue"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/ImportDialogue" to="." method="OnDialogueImport"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/SaveDialogue" to="." method="OnDialogueSave"]
 [connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTextButton" to="." method="AddTextBit"]
 [connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddSpriteBit" to="." method="AddSpriteBit"]
 [connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTransitionButton" to="." method="AddTransitionBit"]

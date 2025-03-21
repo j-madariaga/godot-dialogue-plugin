@@ -2,11 +2,13 @@
 class_name TextEntryObj
 extends TextureRect
 
+@onready var speaker = $VBoxContainer/SpeakerInput/TextInput
+@onready var rightSideToggle = $VBoxContainer/SpeakerInput/SpeakerRightToggle
+@onready var textSquare = $VBoxContainer/TextInput/TextInput;
+
 func OnMoveUp():
 	var childIdx = get_index();
-	print("Child idx = ", childIdx);
 	if childIdx == 0:
-		print("Could not move!")
 		return;
 	
 	get_parent().move_child(self, childIdx - 1);
@@ -15,10 +17,7 @@ func OnMoveUp():
 
 func OnMoveDown():
 	var childIdx = get_index();
-	print("Child idx = ", childIdx);
-	print("Child count = ", get_parent().get_child_count())
 	if childIdx == get_parent().get_child_count() - 1:
-		print("Could not move!")
 		return;
 	
 	get_parent().move_child(self, childIdx + 1);
@@ -26,4 +25,12 @@ func OnMoveDown():
 
 func OnDelete():
 	queue_free();
+	pass;
+
+func Save(_data):
+	var textBit = DialogueTextBit.new();
+	textBit.speakerName = speaker.text;
+	textBit.speakerRightSide = rightSideToggle.button_pressed;
+	textBit.dialogueText = textSquare.text;
+	_data.append(textBit);
 	pass;
