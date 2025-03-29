@@ -3,6 +3,12 @@ class_name TransitionEntryObj
 extends TextureRect
 
 
+func OnMouseHover():
+	pass;
+	
+func OnMouseUp():
+	pass;
+
 func OnMoveUp():
 	var childIdx = get_index();
 	if childIdx == 0:

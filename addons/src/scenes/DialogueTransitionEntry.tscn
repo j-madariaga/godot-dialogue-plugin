@@ -70,11 +70,10 @@ size_flags_stretch_ratio = 0.5
 theme_override_font_sizes/font_size = 24
 text = "Background"
 
-[node name="TextInput" type="LineEdit" parent="GeneralData/Background"]
+[node name="TextInput" type="TextureRect" parent="GeneralData/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.57
-placeholder_text = "Text"
 
 [node name="BGVisibleToggle" type="CheckButton" parent="GeneralData/Background"]
 layout_mode = 2
