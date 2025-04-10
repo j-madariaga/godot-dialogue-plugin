@@ -55,16 +55,42 @@ theme = SubResource("Theme_6df5w")
 text = "Save Dialogue file
 "
 
-[node name="DialogueData" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
+[node name="EncryptContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="EncryptionToggle" type="CheckButton" parent="DialogueCreatorMainWindow/VBoxContainer/EncryptContainer"]
+layout_mode = 2
+text = "Encrypt file?"
+
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/VBoxContainer/EncryptContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6df5w")
+text = "Key"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyEdit" type="TextEdit" parent="DialogueCreatorMainWindow/VBoxContainer/EncryptContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.58
+theme = SubResource("Theme_6df5w")
+
+[node name="DialogueDataHolder" type="VBoxContainer" parent="DialogueCreatorMainWindow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.37
+
+[node name="DialogueData" type="VBoxContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.44
 
-[node name="TitleContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+[node name="TitleContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6df5w")
@@ -72,13 +98,13 @@ text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleEditText" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+[node name="TitleEditText" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.58
 theme = SubResource("Theme_6df5w")
 
-[node name="Label2" type="Label" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+[node name="Label2" type="Label" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6df5w")
@@ -86,16 +112,16 @@ text = "Trigger chance (%)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TriggerChanceInput" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/TitleContainer"]
+[node name="TriggerChanceInput" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.53
 theme = SubResource("Theme_6df5w")
 
-[node name="FilenameContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+[node name="FilenameContainer" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueData/FilenameContainer"]
+[node name="Label" type="Label" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/FilenameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6df5w")
@@ -103,42 +129,42 @@ text = "Filename"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FileNameTextEdit" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueData/FilenameContainer"]
+[node name="FileNameTextEdit" type="TextEdit" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/FilenameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.58
 theme = SubResource("Theme_6df5w")
 
-[node name="BitManager" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueData"]
+[node name="BitManager" type="HBoxContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData"]
 layout_mode = 2
 
-[node name="AddTextButton" type="Button" parent="DialogueCreatorMainWindow/DialogueData/BitManager"]
+[node name="AddTextButton" type="Button" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "+ Add Text Bit"
 
-[node name="AddSpriteBit" type="Button" parent="DialogueCreatorMainWindow/DialogueData/BitManager"]
+[node name="AddSpriteBit" type="Button" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "+ Add Sprite Bit"
 
-[node name="AddTransitionButton" type="Button" parent="DialogueCreatorMainWindow/DialogueData/BitManager"]
+[node name="AddTransitionButton" type="Button" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager"]
 layout_mode = 2
 theme = SubResource("Theme_6df5w")
 text = "+ Add Transition Bit"
 
-[node name="DialogueBits" type="Panel" parent="DialogueCreatorMainWindow/DialogueData"]
+[node name="DialogueBits" type="Panel" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BitScroll" type="ScrollContainer" parent="DialogueCreatorMainWindow/DialogueData/DialogueBits"]
+[node name="BitScroll" type="ScrollContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/DialogueBits"]
 layout_mode = 0
 offset_right = 879.0
 offset_bottom = 741.0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="BitList" type="VBoxContainer" parent="DialogueCreatorMainWindow/DialogueData/DialogueBits/BitScroll"]
+[node name="BitList" type="VBoxContainer" parent="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/DialogueBits/BitScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -146,6 +172,6 @@ size_flags_vertical = 3
 [connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/NewDialogue" to="." method="OnNewDialogue"]
 [connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/ImportDialogue" to="." method="OnDialogueImport"]
 [connection signal="button_up" from="DialogueCreatorMainWindow/VBoxContainer/GeneralButtons/SaveDialogue" to="." method="OnDialogueSave"]
-[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTextButton" to="." method="AddTextBit"]
-[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddSpriteBit" to="." method="AddSpriteBit"]
-[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueData/BitManager/AddTransitionButton" to="." method="AddTransitionBit"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager/AddTextButton" to="." method="AddTextBit"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager/AddSpriteBit" to="." method="AddSpriteBit"]
+[connection signal="button_up" from="DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/BitManager/AddTransitionButton" to="." method="AddTransitionBit"]

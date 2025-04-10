@@ -3,7 +3,7 @@ class_name TextEntryObj
 extends TextureRect
 
 @onready var speaker = $VBoxContainer/SpeakerInput/TextInput
-@onready var rightSideToggle = $VBoxContainer/SpeakerInput/SpeakerRightToggle
+@onready var rightSideToggle = $VBoxContainer/SpeakerInput/SpeakerRightToggle as CheckButton
 @onready var textSquare = $VBoxContainer/TextInput/TextInput;
 
 func OnMoveUp():
@@ -27,10 +27,8 @@ func OnDelete():
 	queue_free();
 	pass;
 
-func Save(_data):
-	var textBit = DialogueTextBit.new();
-	textBit.speakerName = speaker.text;
-	textBit.speakerRightSide = rightSideToggle.button_pressed;
-	textBit.dialogueText = textSquare.text;
-	_data.append(textBit);
-	pass;
+func Save(data := {}):
+	data["type"] = "TEXT";
+	data["speakerName"] = speaker.text;
+	data["rightSide"] = rightSideToggle.is_pressed();
+	data["text"] = textSquare.text;

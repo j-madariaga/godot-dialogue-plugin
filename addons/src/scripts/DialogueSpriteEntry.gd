@@ -2,6 +2,11 @@
 class_name DialogueSpriteEntry
 extends TextureRect
 
+@onready var textures = $SpriteInput/TextureSection/HBoxContainer
+@onready var flipBools = $SpriteInput/FlippedToggles/HBoxContainer
+@onready var visibleBools = $SpriteInput/VisibleToggles/HBoxContainer
+@onready var highlightToggles = $SpriteInput/HighlightToggles/HBoxContainer
+
 
 func OnMoveUp():
 	var childIdx = get_index();
@@ -24,5 +29,17 @@ func OnDelete():
 	queue_free();
 	pass;
 	
-func Save(_data):
-	pass;
+func Save(data := {}):
+	data["type"] = "SPRITE";
+	data["textures"] = [];
+	data["flipped"] = [];
+	data["visible"] = [];
+	data["highlighted"] = [];
+	
+	var size = textures.get_child_count();
+	for i in size:
+		data["flipped"].append(flipBools.get_child(i).is_pressed());
+		data["visible"].append(visibleBools.get_child(i).is_pressed());
+		data["highlighted"].append(highlightToggles.get_child(i).is_pressed());
+	
+	return;
