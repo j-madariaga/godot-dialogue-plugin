@@ -2,6 +2,10 @@
 class_name TransitionEntryObj
 extends TextureRect
 
+@onready var backTex = $GeneralData/Background/TextInput
+@onready var bgVisible = $GeneralData/Background/BGVisibleToggle;
+@onready var transitionDropDown = $GeneralData/TransitionSection/TransitionDropdown
+@onready var transDuration = $GeneralData/DurationSection/DurationInput
 
 func OnMouseHover():
 	pass;
@@ -31,5 +35,13 @@ func OnDelete():
 	pass;
 
 
-func Save(_data):
+func Save(data := {}):
+	data["type"] = "TRANS";
+	data["background"] = backTex.texture;
+	data["bgVisible"] = bgVisible.is_pressed();
+	data["transition"] = transitionDropDown.get_item_text(transitionDropDown.selected);
+	print(data["transition"])
+	data["duration"] = float(transDuration.text);
+	
+	
 	pass;

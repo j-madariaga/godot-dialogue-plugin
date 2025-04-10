@@ -38,6 +38,7 @@ func Save(data := {}):
 	
 	var size = textures.get_child_count();
 	for i in size:
+		data["textures"].append(textures.get_child(i).texture);
 		data["flipped"].append(flipBools.get_child(i).is_pressed());
 		data["visible"].append(visibleBools.get_child(i).is_pressed());
 		data["highlighted"].append(highlightToggles.get_child(i).is_pressed());
