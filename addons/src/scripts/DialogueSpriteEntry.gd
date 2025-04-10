@@ -14,7 +14,7 @@ func OnMoveUp():
 		return;
 	
 	get_parent().move_child(self, childIdx - 1);
-	pass;
+
 
 
 func OnMoveDown():
@@ -23,11 +23,11 @@ func OnMoveDown():
 		return;
 	
 	get_parent().move_child(self, childIdx + 1);
-	pass;
+
 
 func OnDelete():
 	queue_free();
-	pass;
+
 	
 func Save(data := {}):
 	data["type"] = "SPRITE";
@@ -38,7 +38,7 @@ func Save(data := {}):
 	
 	var size = textures.get_child_count();
 	for i in size:
-		data["textures"].append(textures.get_child(i).texture);
+		data["textures"].append(textures.get_child(i).text);
 		data["flipped"].append(flipBools.get_child(i).is_pressed());
 		data["visible"].append(visibleBools.get_child(i).is_pressed());
 		data["highlighted"].append(highlightToggles.get_child(i).is_pressed());

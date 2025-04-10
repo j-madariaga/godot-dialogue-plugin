@@ -7,19 +7,13 @@ extends TextureRect
 @onready var transitionDropDown = $GeneralData/TransitionSection/TransitionDropdown
 @onready var transDuration = $GeneralData/DurationSection/DurationInput
 
-func OnMouseHover():
-	pass;
-	
-func OnMouseUp():
-	pass;
-
 func OnMoveUp():
 	var childIdx = get_index();
 	if childIdx == 0:
 		return;
 	
 	get_parent().move_child(self, childIdx - 1);
-	pass;
+	return;
 
 
 func OnMoveDown():
@@ -32,16 +26,13 @@ func OnMoveDown():
 
 func OnDelete():
 	queue_free();
-	pass;
+	return;
 
 
 func Save(data := {}):
 	data["type"] = "TRANS";
-	data["background"] = backTex.texture;
+	data["background"] = backTex.text;
 	data["bgVisible"] = bgVisible.is_pressed();
 	data["transition"] = transitionDropDown.get_item_text(transitionDropDown.selected);
-	print(data["transition"])
 	data["duration"] = float(transDuration.text);
-	
-	
-	pass;
+	return;

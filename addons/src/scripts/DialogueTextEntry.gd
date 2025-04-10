@@ -21,11 +21,10 @@ func OnMoveDown():
 		return;
 	
 	get_parent().move_child(self, childIdx + 1);
-	pass;
+
 
 func OnDelete():
 	queue_free();
-	pass;
 
 func Save(data := {}):
 	data["type"] = "TEXT";

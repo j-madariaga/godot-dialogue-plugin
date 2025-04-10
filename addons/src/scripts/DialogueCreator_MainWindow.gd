@@ -71,13 +71,11 @@ func OnDialogueSave():
 	file.store_string(jsonData);
 	file.close();
 	
-	pass;
 
 func AddTextBit():
 	var newTextBit = TEXT_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newTextBit);
-	pass;
-	
+		
 func AddSpriteBit():
 	var newSpriteBit = SPRITE_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newSpriteBit);
@@ -85,5 +83,5 @@ func AddSpriteBit():
 func AddTransitionBit():
 	var newTransBit = TRANS_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newTransBit);
-	pass;
+	
 

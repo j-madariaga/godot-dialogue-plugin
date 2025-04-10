@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1b7io78sbl6b"]
+[gd_scene load_steps=6 format=3 uid="uid://b1b7io78sbl6b"]
 
 [ext_resource type="Script" path="res://addons/src/scripts/DialogueTransitionEntry.gd" id="1_bc4id"]
 
@@ -18,11 +18,6 @@ colors = PackedColorArray(0.255659, 0.255659, 0.255659, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_isuox"]
 gradient = SubResource("Gradient_fyu02")
-
-[sub_resource type="Gradient" id="Gradient_cpwdi"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_j15os"]
-gradient = SubResource("Gradient_cpwdi")
 
 [node name="DialogueTransitionEntry" type="TextureRect"]
 anchors_preset = 15
@@ -75,11 +70,10 @@ size_flags_stretch_ratio = 0.5
 theme_override_font_sizes/font_size = 24
 text = "Background"
 
-[node name="TextInput" type="TextureRect" parent="GeneralData/Background"]
+[node name="BGInput" type="LineEdit" parent="GeneralData/Background"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.57
-texture = SubResource("GradientTexture2D_j15os")
 
 [node name="BGVisibleToggle" type="CheckButton" parent="GeneralData/Background"]
 layout_mode = 2

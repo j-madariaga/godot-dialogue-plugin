@@ -1,13 +1,57 @@
 {
 	"dialogueBits": [
 		{
-			"background": "<GradientTexture2D#-9223372009608575764>",
-			"bgVisible": false,
-			"duration": 1.5,
-			"transition": "STATIC",
+			"background": "",
+			"bgVisible": true,
+			"duration": 1,
+			"transition": "FADE_FROM_BLACK",
+			"type": "TRANS"
+		},
+		{
+			"flipped": [
+				false,
+				false,
+				false,
+				false,
+				false
+			],
+			"highlighted": [
+				false,
+				false,
+				false,
+				false,
+				false
+			],
+			"textures": [
+				"Nuir_Normal",
+				"",
+				"",
+				"",
+				""
+			],
+			"type": "SPRITE",
+			"visible": [
+				false,
+				false,
+				false,
+				false,
+				false
+			]
+		},
+		{
+			"rightSide": false,
+			"speakerName": "Nuir",
+			"text": "Hello, this is a test!",
+			"type": "TEXT"
+		},
+		{
+			"background": "",
+			"bgVisible": true,
+			"duration": 1,
+			"transition": "FADE_TO_BLACK",
 			"type": "TRANS"
 		}
 	],
-	"title": "T",
-	"triggerChance": 2
+	"title": "Title",
+	"triggerChance": 60
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://clck0oh54qtre"]
+[gd_scene load_steps=6 format=3 uid="uid://clck0oh54qtre"]
 
 [ext_resource type="Script" path="res://addons/src/scripts/DialogueSpriteEntry.gd" id="1_oynrx"]
 
@@ -18,12 +18,6 @@ colors = PackedColorArray(0.255659, 0.255659, 0.255659, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_isuox"]
 gradient = SubResource("Gradient_fyu02")
-
-[sub_resource type="Gradient" id="Gradient_n5b0c"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ksr4u"]
-gradient = SubResource("Gradient_n5b0c")
-width = 64
 
 [node name="DialogueTextEntry" type="TextureRect"]
 anchors_preset = 15
@@ -79,105 +73,114 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="SpriteInput" type="VBoxContainer" parent="."]
+[node name="SpriteInput" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 15.0
-offset_right = 874.0
-offset_bottom = 299.0
+offset_top = 39.0
+offset_right = 943.0
+offset_bottom = 285.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.51
 
-[node name="TextureSection" type="HBoxContainer" parent="SpriteInput"]
+[node name="TextureSection" type="VBoxContainer" parent="SpriteInput"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.17
+size_flags_stretch_ratio = 1.61
 
 [node name="VisibleTag" type="Label" parent="SpriteInput/TextureSection"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.0
 theme_override_font_sizes/font_size = 24
 text = "Textures"
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpriteInput/TextureSection"]
+[node name="HBoxContainer" type="VBoxContainer" parent="SpriteInput/TextureSection"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.64
-
-[node name="Text_Idx2" type="TextureRect" parent="SpriteInput/TextureSection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("GradientTexture1D_ksr4u")
-
-[node name="Text_Idx0" type="TextureRect" parent="SpriteInput/TextureSection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("GradientTexture1D_ksr4u")
-
-[node name="Text_Idx4" type="TextureRect" parent="SpriteInput/TextureSection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("GradientTexture1D_ksr4u")
-
-[node name="Text_Idx1" type="TextureRect" parent="SpriteInput/TextureSection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("GradientTexture1D_ksr4u")
-
-[node name="Text_Idx3" type="TextureRect" parent="SpriteInput/TextureSection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = SubResource("GradientTexture1D_ksr4u")
-
-[node name="VisibleToggles" type="HBoxContainer" parent="SpriteInput"]
-layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.32
+
+[node name="Text_Idx2" type="LineEdit" parent="SpriteInput/TextureSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="Text_Idx0" type="LineEdit" parent="SpriteInput/TextureSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="Text_Idx4" type="LineEdit" parent="SpriteInput/TextureSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="Text_Idx1" type="LineEdit" parent="SpriteInput/TextureSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="Text_Idx3" type="LineEdit" parent="SpriteInput/TextureSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+size_flags_vertical = 3
+
+[node name="VisibleToggles" type="VBoxContainer" parent="SpriteInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="VisibleTag" type="Label" parent="SpriteInput/VisibleToggles"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.0
 theme_override_font_sizes/font_size = 24
 text = "Visible"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpriteInput/VisibleToggles"]
+[node name="HBoxContainer" type="VBoxContainer" parent="SpriteInput/VisibleToggles"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.09
+size_flags_vertical = 3
 
 [node name="Visible_Idx2" type="CheckButton" parent="SpriteInput/VisibleToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Visible_Idx0" type="CheckButton" parent="SpriteInput/VisibleToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Visible_Idx4" type="CheckButton" parent="SpriteInput/VisibleToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Visible_Idx1" type="CheckButton" parent="SpriteInput/VisibleToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Visible_Idx3" type="CheckButton" parent="SpriteInput/VisibleToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
-[node name="FlippedToggles" type="HBoxContainer" parent="SpriteInput"]
+[node name="FlippedToggles" type="VBoxContainer" parent="SpriteInput"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.32
 
@@ -185,43 +188,51 @@ size_flags_stretch_ratio = 0.32
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.0
 theme_override_font_sizes/font_size = 24
 text = "Flip"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpriteInput/FlippedToggles"]
+[node name="HBoxContainer" type="VBoxContainer" parent="SpriteInput/FlippedToggles"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 2.07
 
 [node name="Flip_Idx2" type="CheckButton" parent="SpriteInput/FlippedToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Flip_Idx0" type="CheckButton" parent="SpriteInput/FlippedToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Flip_Idx4" type="CheckButton" parent="SpriteInput/FlippedToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Flip_Idx1" type="CheckButton" parent="SpriteInput/FlippedToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Flip_Idx3" type="CheckButton" parent="SpriteInput/FlippedToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
-[node name="HighlightToggles" type="HBoxContainer" parent="SpriteInput"]
+[node name="HighlightToggles" type="VBoxContainer" parent="SpriteInput"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.32
 
@@ -229,39 +240,46 @@ size_flags_stretch_ratio = 0.32
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.0
 theme_override_font_sizes/font_size = 24
 text = "Highlighted"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SpriteInput/HighlightToggles"]
+[node name="HBoxContainer" type="VBoxContainer" parent="SpriteInput/HighlightToggles"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 2.07
 
 [node name="Highlight_Idx2" type="CheckButton" parent="SpriteInput/HighlightToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Highlight_Idx0" type="CheckButton" parent="SpriteInput/HighlightToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Highlight_Idx4" type="CheckButton" parent="SpriteInput/HighlightToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Highlight_Idx1" type="CheckButton" parent="SpriteInput/HighlightToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [node name="Highlight_Idx3" type="CheckButton" parent="SpriteInput/HighlightToggles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 
 [connection signal="button_up" from="DeleteButton" to="." method="OnDelete"]
