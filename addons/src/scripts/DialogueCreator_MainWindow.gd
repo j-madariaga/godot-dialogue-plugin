@@ -1,4 +1,5 @@
 @tool
+class_name DialogueCreator
 extends Control
 
 @onready var dialogueDataScreen = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData
@@ -9,36 +10,104 @@ extends Control
 @onready var triggerChanceInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer/TriggerChanceInput
 
 const OUTPUT_PATH = "res://addons/output/";
+const ENCRYPTED_OUTPUT_PATH = "res://addons/output_encrypted/";
 const TEXT_BIT_ARCH = preload("res://addons/src/scenes/DialogueTextEntry.tscn");
 const SPRITE_BIT_ARCH = preload("res://addons/src/scenes/DialogueSpriteEntry.tscn");
 const TRANS_BIT_ARCH = preload("res://addons/src/scenes/DialogueTransitionEntry.tscn");
 
+const FILE_INFO_ARCH = preload("res://addons/src/scenes/FileInfo.tscn");
+@onready var fileInfoList = $DialogueCreatorMainWindow/VBoxContainer/SaveHolder/FileScroll/FileList
+
 @onready var encryptToggle = $DialogueCreatorMainWindow/VBoxContainer/EncryptContainer/EncryptionToggle
 @onready var encryptKey = $DialogueCreatorMainWindow/VBoxContainer/EncryptContainer/KeyEdit
 
+signal onFileImport(String);
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	VerifySaveDir();
 	dialogueDataScreen.visible = false;
+	
+	ReadDialogues();
+	
+	onFileImport.connect(OnDialogueImport);
 	pass # Replace with function body.
 
+
+func ReadDialogues():
+	var dir = DirAccess.open(OUTPUT_PATH);
+
+	if dir:
+		dir.list_dir_begin()
+		var fileName = dir.get_next()
+		while fileName != "":
+			if dir.current_is_dir():
+				print("Found directory: " + fileName)
+				
+			else:
+				print("Found file: " + fileName);
+				
+				var FileInfo = FILE_INFO_ARCH.instantiate();
+				FileInfo.dialogueCr = self;
+				fileInfoList.add_child(FileInfo);
+				FileInfo.Init(fileName)
+				
+			fileName = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func IsDialogueListEmpty():
+	return dialogueBitList.get_child_count() == 0;
+	
+func ClearDialogueList():
+	for ch in dialogueBitList.get_children():
+		ch.queue_free();
 
 
 func OnNewDialogue():
 	dialogueDataScreen.visible = true;
 	pass;
 
-func OnDialogueImport():
-	pass;
 
+func OnDialogueImport(fileName : String):
+	print(fileName);
+	
+	dialogueDataScreen.visible = true;
+	
+	if IsDialogueListEmpty() == false:
+		ClearDialogueList();		
+	
+	var fullPath = OUTPUT_PATH + fileName;
+	var file = FileAccess.open(fullPath, FileAccess.READ);
+	
+	var parsedData = JSON.parse_string(file.get_as_text());
+	file.close()
 
-func VerifySaveDir():
-	DirAccess.make_dir_absolute(OUTPUT_PATH);
-	pass;
+	
+	titleInput.text = parsedData["title"];
+	fileNameInput.text = fileName.trim_suffix(".dialogue");
+	triggerChanceInput.text = str(parsedData["triggerChance"]);
+	
+	var bits = parsedData["dialogueBits"]
+	for b in bits:
+		print(b);
+		print("\n")
+		
+		match b["type"]:
+			"TEXT":
+				AddTextBit(b);
+			"SPRITE":
+				AddSpriteBit(b);
+			"AUDIO":
+				AddAudioBit(b);
+			"TRANS":
+				AddTransitionBit(b);
+		
+	return;
 
 func OnDialogueSave():
 	if fileNameInput.text == "":
@@ -59,12 +128,13 @@ func OnDialogueSave():
 
 	var jsonData = JSON.stringify(dialogueData, "\t");
 	
-	var fullPath = OUTPUT_PATH + fileNameInput.text + ".dialogue";
 
 	var file;
 	if encryptToggle.is_pressed():
+		var fullPath = ENCRYPTED_OUTPUT_PATH + fileNameInput.text + ".dialogue";
 		file = FileAccess.open_encrypted_with_pass(fullPath, FileAccess.WRITE, encryptKey.text);
 	else:
+		var fullPath = OUTPUT_PATH + fileNameInput.text + ".dialogue";
 		file = FileAccess.open(fullPath, FileAccess.WRITE);
 		
 	
@@ -72,16 +142,27 @@ func OnDialogueSave():
 	file.close();
 	
 
-func AddTextBit():
+func AddTextBit(bitData := {}):
 	var newTextBit = TEXT_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newTextBit);
+	
+	if bitData != {}:
+		newTextBit.Load(bitData);
 		
-func AddSpriteBit():
+func AddSpriteBit(bitData := {}):
 	var newSpriteBit = SPRITE_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newSpriteBit);
 	
-func AddTransitionBit():
+	if bitData != {}:
+		newSpriteBit.Load(bitData);
+	
+func AddTransitionBit(bitData := {}):
 	var newTransBit = TRANS_BIT_ARCH.instantiate();
 	dialogueBitList.add_child(newTransBit);
 	
+	if bitData != {}:
+		newTransBit.Load(bitData);
+	
+func AddAudioBit(bitData := {}):
+	pass;
 

@@ -44,3 +44,11 @@ func Save(data := {}):
 		data["highlighted"].append(highlightToggles.get_child(i).is_pressed());
 	
 	return;
+	
+func Load(data := {}):
+	var size = data["textures"].size()
+	for i in size:
+		textures.get_child(i).text = data["textures"][i];
+		flipBools.get_child(i).button_pressed = data["flipped"][i];
+		visibleBools.get_child(i).button_pressed = data["visible"][i];
+		highlightToggles.get_child(i).button_pressed = data["highlighted"][i];

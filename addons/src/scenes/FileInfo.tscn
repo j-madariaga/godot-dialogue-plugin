@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://88irb3gdussq"]
+
+[ext_resource type="Script" path="res://addons/src/scripts/FileInfo.gd" id="1_6ec84"]
+
+[node name="FileSquare" type="HBoxContainer"]
+script = ExtResource("1_6ec84")
+
+[node name="FileName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "File name test"
+text_overrun_behavior = 3
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+text = "Import"
+
+[connection signal="pressed" from="Button" to="." method="OnImportPress"]

@@ -12,7 +12,7 @@ func OnMoveUp():
 		return;
 	
 	get_parent().move_child(self, childIdx - 1);
-	pass;
+	return;
 
 
 func OnMoveDown():
@@ -21,13 +21,21 @@ func OnMoveDown():
 		return;
 	
 	get_parent().move_child(self, childIdx + 1);
+	return;
 
 
 func OnDelete():
 	queue_free();
+	return;
 
 func Save(data := {}):
 	data["type"] = "TEXT";
 	data["speakerName"] = speaker.text;
 	data["rightSide"] = rightSideToggle.is_pressed();
 	data["text"] = textSquare.text;
+	return;
+	
+func Load(data := {}):
+	speaker.text = data["speakerName"];
+	rightSideToggle.button_pressed = data["rightSide"];
+	textSquare.text = data["text"];
