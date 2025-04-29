@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bvyrp7ip4aw88"]
 
-[ext_resource type="Script" path="res://addons/src/scripts/DialogueTextEntry.gd" id="1_ebg2r"]
+[ext_resource type="Script" uid="uid://da2osfyooh11q" path="res://addons/src/scripts/DialogueTextEntry.gd" id="1_ebg2r"]
 
 [sub_resource type="Gradient" id="Gradient_jsg8m"]
 offsets = PackedFloat32Array(0.558442)
@@ -20,97 +20,38 @@ colors = PackedColorArray(0.255659, 0.255659, 0.255659, 1)
 gradient = SubResource("Gradient_fyu02")
 
 [node name="DialogueTextEntry" type="TextureRect"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -1.0
-offset_right = -18.0
-offset_bottom = -296.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_bottom = 0.486
+offset_right = 1117.0
+offset_bottom = -43.928
 texture = SubResource("GradientTexture2D_b46qh")
-stretch_mode = 2
+stretch_mode = 1
 script = ExtResource("1_ebg2r")
 
 [node name="Background2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 13.0
+layout_mode = 1
+offset_left = 9.0
 offset_top = 14.0
-offset_right = 1098.0
-offset_bottom = 260.0
+offset_right = 1105.0
+offset_bottom = 263.0
 texture = SubResource("GradientTexture1D_isuox")
 
 [node name="DeleteButton" type="Button" parent="."]
 layout_mode = 2
-offset_left = 965.0
-offset_top = 29.0
-offset_right = 1079.0
-offset_bottom = 76.0
+offset_left = 981.0
+offset_top = 25.0
+offset_right = 1095.0
+offset_bottom = 72.0
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
 text = "DELETE"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 47.0
-offset_top = 19.0
-offset_right = 713.0
-offset_bottom = 251.0
-
-[node name="SpeakerInput" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.35
-
-[node name="TextTag" type="Label" parent="VBoxContainer/SpeakerInput"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-theme_override_font_sizes/font_size = 24
-text = "Speaker name"
-
-[node name="TextInput" type="LineEdit" parent="VBoxContainer/SpeakerInput"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.57
-placeholder_text = "Text"
-
-[node name="SpeakerRightToggle" type="CheckButton" parent="VBoxContainer/SpeakerInput"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.35
-theme_override_font_sizes/font_size = 24
-text = "Right side speaker?"
-
-[node name="TextInput" type="VBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.51
-
-[node name="TextTag" type="Label" parent="VBoxContainer/TextInput"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
-theme_override_font_sizes/font_size = 24
-text = "Dialogue text"
-vertical_alignment = 1
-
-[node name="TextInput" type="TextEdit" parent="VBoxContainer/TextInput"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.75
-placeholder_text = "text"
-wrap_mode = 1
-
 [node name="BoxControl" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 998.0
-offset_top = 87.0
-offset_right = 1058.0
-offset_bottom = 267.0
+offset_left = 1026.0
+offset_top = 85.0
+offset_right = 1086.0
+offset_bottom = 265.0
 scale = Vector2(0.96, 0.879999)
 
 [node name="MoveUpButton" type="Button" parent="BoxControl"]
@@ -129,6 +70,228 @@ text = "V"
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
+
+[node name="Data" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 18.0
+offset_right = 977.0
+offset_bottom = 243.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpeakerInput" type="HBoxContainer" parent="Data/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.35
+
+[node name="TextTag" type="Label" parent="Data/VBoxContainer/SpeakerInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_font_sizes/font_size = 24
+text = "Speaker name"
+
+[node name="TextInput" type="LineEdit" parent="Data/VBoxContainer/SpeakerInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.57
+placeholder_text = "Text"
+
+[node name="SpeakerRightToggle" type="CheckButton" parent="Data/VBoxContainer/SpeakerInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.35
+theme_override_font_sizes/font_size = 24
+text = "Right side?"
+
+[node name="TextInput" type="VBoxContainer" parent="Data/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.51
+
+[node name="TextTag" type="Label" parent="Data/VBoxContainer/TextInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+theme_override_font_sizes/font_size = 24
+text = "Dialogue text"
+vertical_alignment = 1
+
+[node name="TextInput" type="TextEdit" parent="Data/VBoxContainer/TextInput"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.75
+placeholder_text = "text"
+wrap_mode = 1
+
+[node name="Textures" type="VBoxContainer" parent="Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Data/Textures"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "     Idx                            Filename                             V        Fl        H"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Data/Textures"]
+layout_mode = 2
+
+[node name="IdxEntry" type="VBoxContainer" parent="Data/Textures/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.87
+
+[node name="LineEdit" type="Label" parent="Data/Textures/HBoxContainer/IdxEntry"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit2" type="Label" parent="Data/Textures/HBoxContainer/IdxEntry"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit3" type="Label" parent="Data/Textures/HBoxContainer/IdxEntry"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit4" type="Label" parent="Data/Textures/HBoxContainer/IdxEntry"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit5" type="Label" parent="Data/Textures/HBoxContainer/IdxEntry"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TexEntry" type="VBoxContainer" parent="Data/Textures/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.72
+
+[node name="LineEdit" type="LineEdit" parent="Data/Textures/HBoxContainer/TexEntry"]
+layout_mode = 2
+text = "KEEP"
+placeholder_text = "KEEP"
+
+[node name="LineEdit2" type="LineEdit" parent="Data/Textures/HBoxContainer/TexEntry"]
+layout_mode = 2
+text = "KEEP"
+placeholder_text = "KEEP"
+
+[node name="LineEdit3" type="LineEdit" parent="Data/Textures/HBoxContainer/TexEntry"]
+layout_mode = 2
+text = "KEEP"
+placeholder_text = "KEEP"
+
+[node name="LineEdit4" type="LineEdit" parent="Data/Textures/HBoxContainer/TexEntry"]
+layout_mode = 2
+text = "KEEP"
+placeholder_text = "KEEP"
+
+[node name="LineEdit5" type="LineEdit" parent="Data/Textures/HBoxContainer/TexEntry"]
+layout_mode = 2
+text = "KEEP"
+placeholder_text = "KEEP"
+
+[node name="Visible" type="VBoxContainer" parent="Data/Textures/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="LineEdit" type="CheckButton" parent="Data/Textures/HBoxContainer/Visible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit2" type="CheckButton" parent="Data/Textures/HBoxContainer/Visible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit3" type="CheckButton" parent="Data/Textures/HBoxContainer/Visible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit4" type="CheckButton" parent="Data/Textures/HBoxContainer/Visible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit5" type="CheckButton" parent="Data/Textures/HBoxContainer/Visible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Flipped" type="VBoxContainer" parent="Data/Textures/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="LineEdit" type="CheckButton" parent="Data/Textures/HBoxContainer/Flipped"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit2" type="CheckButton" parent="Data/Textures/HBoxContainer/Flipped"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit3" type="CheckButton" parent="Data/Textures/HBoxContainer/Flipped"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit4" type="CheckButton" parent="Data/Textures/HBoxContainer/Flipped"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit5" type="CheckButton" parent="Data/Textures/HBoxContainer/Flipped"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Highlighted" type="VBoxContainer" parent="Data/Textures/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.13
+
+[node name="LineEdit" type="CheckButton" parent="Data/Textures/HBoxContainer/Highlighted"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit2" type="CheckButton" parent="Data/Textures/HBoxContainer/Highlighted"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit3" type="CheckButton" parent="Data/Textures/HBoxContainer/Highlighted"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit4" type="CheckButton" parent="Data/Textures/HBoxContainer/Highlighted"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit5" type="CheckButton" parent="Data/Textures/HBoxContainer/Highlighted"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [connection signal="button_up" from="DeleteButton" to="." method="OnDelete"]
 [connection signal="button_up" from="BoxControl/MoveUpButton" to="." method="OnMoveUp"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://clck0oh54qtre"]
 
-[ext_resource type="Script" path="res://addons/src/scripts/DialogueSpriteEntry.gd" id="1_oynrx"]
+[ext_resource type="Script" uid="uid://cqxtehupgpdct" path="res://addons/src/scripts/DialogueSpriteEntry.gd" id="1_oynrx"]
 
 [sub_resource type="Gradient" id="Gradient_jsg8m"]
 offsets = PackedFloat32Array(0.558442)

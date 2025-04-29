@@ -30,23 +30,33 @@ func OnDelete():
 
 	
 func Save(data := {}):
-	data["type"] = "SPRITE";
-	data["textures"] = [];
-	data["flipped"] = [];
-	data["visible"] = [];
-	data["highlighted"] = [];
+	data["id"] = "SPRITE";
+	var texData = [];
+	var flipData = [];
+	var visData = [];
+	var highData = []; 
 	
 	var size = textures.get_child_count();
 	for i in size:
-		data["textures"].append(textures.get_child(i).text);
-		data["flipped"].append(flipBools.get_child(i).is_pressed());
-		data["visible"].append(visibleBools.get_child(i).is_pressed());
-		data["highlighted"].append(highlightToggles.get_child(i).is_pressed());
+		if textures.get_child(i).text == "":
+			continue;
+		
+		texData.append(textures.get_child(i).text);
+		flipData.append(flipBools.get_child(i).is_pressed());
+		visData.append(visibleBools.get_child(i).is_pressed());
+		highData.append(highlightToggles.get_child(i).is_pressed());
 	
+	data["textures"] = texData;
+	data["flipped"] = flipData;
+	data["visible"] = visData;
+	data["highlighted"] = highData;	
 	return;
 	
 func Load(data := {}):
-	var size = data["textures"].size()
+	if data.has("textures") == false:
+		return;
+	
+	var size = data["textures"].size();
 	for i in size:
 		textures.get_child(i).text = data["textures"][i];
 		flipBools.get_child(i).button_pressed = data["flipped"][i];

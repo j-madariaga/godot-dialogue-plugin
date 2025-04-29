@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://88irb3gdussq"]
 
-[ext_resource type="Script" path="res://addons/src/scripts/FileInfo.gd" id="1_6ec84"]
+[ext_resource type="Script" uid="uid://c81fb3wcp6tft" path="res://addons/src/scripts/FileInfo.gd" id="1_6ec84"]
 
 [node name="FileSquare" type="HBoxContainer"]
 script = ExtResource("1_6ec84")

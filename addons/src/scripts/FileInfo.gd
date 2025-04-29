@@ -2,7 +2,7 @@ extends HBoxContainer
 
 @onready var nameLabel = $FileName
 var internalFileName : String;
-var dialogueCr : DialogueCreator;
+var dialogueCr : DialogueCreator = null;
 
 func Init(fn : String):
 	internalFileName = fn;

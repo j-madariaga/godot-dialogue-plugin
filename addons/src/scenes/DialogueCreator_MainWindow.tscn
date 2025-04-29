@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b06tc2uoc0kn1"]
 
-[ext_resource type="Script" path="res://addons/src/scripts/DialogueCreator_MainWindow.gd" id="1_wfgnh"]
+[ext_resource type="Script" uid="uid://bgc5uflum8fmv" path="res://addons/src/scripts/DialogueCreator_MainWindow.gd" id="1_wfgnh"]
 
 [sub_resource type="Theme" id="Theme_6df5w"]
 default_font_size = 24

@@ -30,16 +30,19 @@ func OnDelete():
 
 
 func Save(data := {}):
-	data["type"] = "TRANS";
+	data["id"] = "TRANS";
 	data["background"] = backTex.text;
 	data["bgVisible"] = bgVisible.is_pressed();
 	data["transition"] = transitionDropDown.get_item_text(transitionDropDown.selected);
-	data["transIdx"] = transitionDropDown.selected;
 	data["duration"] = float(transDuration.text);
 	return;
 
 func Load(data := {}):
 	backTex.text = data["background"];
-	bgVisible.button_pressed = bool(data["bgVisible"]);
-	transitionDropDown.selected = data["transIdx"];
+	bgVisible.button_pressed = bool(data["bgVisible"]); 
+	
+	for i in transitionDropDown.item_count:
+		if transitionDropDown.get_item_text(i) == data["transition"]:
+			transitionDropDown.selected = i;
+	
 	transDuration.text = str(data["duration"]);

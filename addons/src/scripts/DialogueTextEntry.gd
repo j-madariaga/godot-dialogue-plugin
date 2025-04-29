@@ -2,9 +2,14 @@
 class_name TextEntryObj
 extends TextureRect
 
-@onready var speaker = $VBoxContainer/SpeakerInput/TextInput
-@onready var rightSideToggle = $VBoxContainer/SpeakerInput/SpeakerRightToggle as CheckButton
-@onready var textSquare = $VBoxContainer/TextInput/TextInput;
+@onready var speaker = $Data/VBoxContainer/SpeakerInput/TextInput
+@onready var rightSideToggle = $Data/VBoxContainer/SpeakerInput/SpeakerRightToggle as CheckButton
+@onready var textSquare = $Data/VBoxContainer/TextInput/TextInput;
+
+@onready var texFiles = $Data/Textures/HBoxContainer/TexEntry
+@onready var visibleBools = $Data/Textures/HBoxContainer/Visible
+@onready var flippedBools = $Data/Textures/HBoxContainer/Flipped
+@onready var highlightBools = $Data/Textures/HBoxContainer/Highlighted
 
 func OnMoveUp():
 	var childIdx = get_index();
@@ -29,13 +34,49 @@ func OnDelete():
 	return;
 
 func Save(data := {}):
-	data["type"] = "TEXT";
+	data["id"] = "TEXT";
 	data["speakerName"] = speaker.text;
 	data["rightSide"] = rightSideToggle.is_pressed();
 	data["text"] = textSquare.text;
-	return;
+	
+	
+	var texData = {};
+	
+	var size = texFiles.get_child_count();
+	for i in size:
+		if texFiles.get_child(i).text == "KEEP":
+			continue;
+			
+		texData[i] = {};
+		texData[i]["file"] = texFiles.get_child(i).text;
+		
+		texData[i]["visible"] = visibleBools.get_child(i).is_pressed();
+		texData[i]["flipped"] = flippedBools.get_child(i).is_pressed();
+		texData[i]["highlighted"] = highlightBools.get_child(i).is_pressed();
+		#texData.append(texFiles.get_child(i).text);
+		#flipData.append(flippedBools.get_child(i).is_pressed());
+		#visData.append(visibleBools.get_child(i).is_pressed());
+		#highData.append(highlightBools.get_child(i).is_pressed());
+		#
+	if texData == {}:
+		return;
+		
+	data["textures"] = texData;
+
 	
 func Load(data := {}):
 	speaker.text = data["speakerName"];
 	rightSideToggle.button_pressed = data["rightSide"];
 	textSquare.text = data["text"];
+	
+	if data.has("textures") == false:
+		return;
+	
+	var size = data["textures"].size()
+	for i in size:
+		if data["textures"].has(i) == false:
+			continue;
+		texFiles.get_child(i).text = data["textures"][i]["file"];
+		flippedBools.get_child(i).button_pressed = data["textures"][i]["flipped"];
+		visibleBools.get_child(i).button_pressed = data["textures"][i]["visible"];
+		highlightBools.get_child(i).button_pressed = data["textures"][i]["highlight"];

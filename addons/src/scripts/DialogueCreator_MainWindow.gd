@@ -9,8 +9,8 @@ extends Control
 @onready var fileNameInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/FilenameContainer/FileNameTextEdit
 @onready var triggerChanceInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer/TriggerChanceInput
 
-const OUTPUT_PATH = "res://addons/output/";
-const ENCRYPTED_OUTPUT_PATH = "res://addons/output_encrypted/";
+const OUTPUT_PATH = "addons/output/";
+const ENCRYPTED_OUTPUT_PATH = "addons/output_encrypted/";
 const TEXT_BIT_ARCH = preload("res://addons/src/scenes/DialogueTextEntry.tscn");
 const SPRITE_BIT_ARCH = preload("res://addons/src/scenes/DialogueSpriteEntry.tscn");
 const TRANS_BIT_ARCH = preload("res://addons/src/scenes/DialogueTransitionEntry.tscn");
@@ -34,6 +34,10 @@ func _ready():
 
 
 func ReadDialogues():
+	
+	for ch in fileInfoList.get_children():
+		ch.queue_free();
+	
 	var dir = DirAccess.open(OUTPUT_PATH);
 
 	if dir:
@@ -74,8 +78,7 @@ func OnNewDialogue():
 
 
 func OnDialogueImport(fileName : String):
-	print(fileName);
-	
+
 	dialogueDataScreen.visible = true;
 	
 	if IsDialogueListEmpty() == false:
@@ -87,17 +90,15 @@ func OnDialogueImport(fileName : String):
 	var parsedData = JSON.parse_string(file.get_as_text());
 	file.close()
 
-	
-	titleInput.text = parsedData["title"];
-	fileNameInput.text = fileName.trim_suffix(".dialogue");
-	triggerChanceInput.text = str(parsedData["triggerChance"]);
+	#
+	#titleInput.text = parsedData["title"];
+	#fileNameInput.text = fileName.trim_suffix(".dialogue");
+	#triggerChanceInput.text = str(parsedData["triggerChance"]);
 	
 	var bits = parsedData["dialogueBits"]
 	for b in bits:
-		print(b);
-		print("\n")
 		
-		match b["type"]:
+		match b["id"]:
 			"TEXT":
 				AddTextBit(b);
 			"SPRITE":
@@ -141,6 +142,8 @@ func OnDialogueSave():
 	file.store_string(jsonData);
 	file.close();
 	
+	ReadDialogues();
+	
 
 func AddTextBit(bitData := {}):
 	var newTextBit = TEXT_BIT_ARCH.instantiate();
@@ -165,4 +168,3 @@ func AddTransitionBit(bitData := {}):
 	
 func AddAudioBit(bitData := {}):
 	pass;
-
