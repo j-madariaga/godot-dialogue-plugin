@@ -7,6 +7,7 @@ extends HBoxContainer
 
 
 @onready var fileNameInput = $Organizer/DialogueCreator/DialogueDataHolder/DialogueData/FilenameContainer/FileNameTextEdit
+@onready var defaultLocaleInput = $Organizer/DialogueCreator/DialogueDataHolder/DialogueData/FilenameContainer/LocaleInput
 @onready var dialogueBitList = $Organizer/DialogueCreator/DialogueDataHolder/DialogueData/BitScroll/BitList
 @onready var translationList = $Organizer/DialogueTranslator/Scroll/TranslationHolder
 
@@ -57,10 +58,11 @@ func ReadDialogues():
 		var fileName = dir.get_next()
 		while fileName != "":
 			if dir.current_is_dir():
-				print("Found directory: " + fileName)
+				#print("Found directory: " + fileName)
+				continue
 				
 			else:
-				print("Found file: " + fileName);
+				#print("Found file: " + fileName);
 				
 				var FileInfo = FILE_INFO_ARCH.instantiate();
 				FileInfo.dialogueCr = self;
@@ -76,11 +78,18 @@ func ReadDialogues():
 func _process(delta):
 	pass
 
-func IsDialogueListEmpty():
+func IsDialogueListEmpty() -> bool:
 	return dialogueBitList.get_child_count() == 0;
-	
+
+func IsTranslationListEmpty() -> bool:
+	return translationList.get_child_count() == 0;
+
 func ClearDialogueList():
 	for ch in dialogueBitList.get_children():
+		ch.queue_free();
+		
+func ClearTranslationList():
+	for ch in translationList.get_children():
 		ch.queue_free();
 
 
@@ -92,15 +101,25 @@ func OnNewDialogue():
 func OnDialogueImport(fileName : String):
 
 	dialogueDataScreen.visible = true;
+	fileNameInput.text = fileName.trim_suffix(".dialogue");
 	
 	if IsDialogueListEmpty() == false:
-		ClearDialogueList();		
+		ClearDialogueList();
+		
+	if IsTranslationListEmpty() == false:
+		ClearTranslationList();
 	
 	var fullPath = OUTPUT_PATH + fileName;
 	var file = FileAccess.open(fullPath, FileAccess.READ);
 	
 	var parsedData = JSON.parse_string(file.get_as_text());
 	file.close()
+
+	var locales = ["en_US"];
+	if parsedData.has("locales"):
+		locales = parsedData["locales"];		
+		for l in locales:
+			AddTranslationHolder(l)
 
 	
 	var bits = parsedData["dialogueBits"]
@@ -109,14 +128,34 @@ func OnDialogueImport(fileName : String):
 		match b["id"]:
 			"TEXT":
 				AddTextBit(b);
+				if b["speakerName"] is Dictionary:
+					for l in locales:
+						AddNameToLocale(b["speakerName"][l], l)
+				if b["text"] is Dictionary:
+					for l in locales:
+						AddTextToLocale(b["text"][l], l)
 			"SPRITE":
 				AddSpriteBit(b);
 			"AUDIO":
 				AddAudioBit(b);
 			"TRANS":
 				AddTransitionBit(b);
-		
+	
+
+	
 	return;
+
+func AddTextToLocale(text : String, locale : String):
+	for trHolder : TranslationHolder in translationList.get_children():
+		if trHolder.localeInput.text == locale:
+			trHolder.AddTextEntry(text)
+			return;
+	
+func AddNameToLocale(text : String, locale : String):
+	for trHolder : TranslationHolder in translationList.get_children():
+		if trHolder.localeInput.text == locale:
+			trHolder.AddNameEntry(text)
+			return;
 
 func OnDialogueSave():
 	if fileNameInput.text == "":
@@ -125,13 +164,30 @@ func OnDialogueSave():
 	
 	var dialogueData = {
 		"nameKeys" : {},
+		"locales" : ["en_US"],
 		"dialogueBits" : []
 	}
 	
+	for l : TranslationHolder in translationList.get_children():
+		if dialogueData["locales"].has(l.localeInput.text) == false:
+			dialogueData["locales"].append(l.localeInput.text)
+		
 	
+	var textBitsCount = 0;
 	for bit in dialogueBitList.get_children():
-		var data ={}
-		bit.Save(data);
+		var data = {
+			"text" : {},
+			"speakerName" : {}
+		}
+		
+		var isText = bit.Save(data);
+		if isText:
+			for l : TranslationHolder in translationList.get_children():
+				var localeKey = l.localeInput.text;
+				data["text"][localeKey] = l.textList.get_child(textBitsCount).text;
+		
+			
+		
 		dialogueData["dialogueBits"].append(data);
 
 	var jsonData = JSON.stringify(dialogueData, "\t");
@@ -177,8 +233,8 @@ func AddAudioBit(bitData := {}):
 	pass;
 
 
-func AddTranslationHolder(data := {}):
-	var holder = TRANSLATION_HOLDER_ARCH.instantiate();
+func AddTranslationHolder(localeKey : String = ""):
+	var holder : TranslationHolder = TRANSLATION_HOLDER_ARCH.instantiate();
 	translationList.add_child(holder)
-	
-	return;
+	holder.localeInput.text = localeKey;
+	return

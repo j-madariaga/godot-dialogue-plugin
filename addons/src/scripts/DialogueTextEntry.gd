@@ -33,10 +33,13 @@ func OnDelete():
 	queue_free();
 	return;
 
-func Save(data := {}):
+func Save(data := {}) -> int:
 	data["id"] = "TEXT";
-	data["speakerName"] = speaker.text;
+	data["speakerName"] = {};
+	data["speakerName"]["en_US"] = speaker.text;
 	data["rightSide"] = rightSideToggle.is_pressed();
+	data["text"] = {};
+	
 	data["text"]["en_US"] = textSquare.text;
 	
 	
@@ -53,36 +56,44 @@ func Save(data := {}):
 		texData[i]["visible"] = visibleBools.get_child(i).is_pressed();
 		texData[i]["flipped"] = flippedBools.get_child(i).is_pressed();
 		texData[i]["highlighted"] = highlightBools.get_child(i).is_pressed();
-		#texData.append(texFiles.get_child(i).text);
-		#flipData.append(flippedBools.get_child(i).is_pressed());
-		#visData.append(visibleBools.get_child(i).is_pressed());
-		#highData.append(highlightBools.get_child(i).is_pressed());
-		#
+		
 	if texData == {}:
-		return;
+		return 1;
 		
 	data["textures"] = texData;
+	return 1;
 
 	
 func Load(data := {}):
-	speaker.text = data["speakerName"];
+	#speaker.text = data["speakerName"]["en_US"];
 	rightSideToggle.button_pressed = data["rightSide"];
 	
-	var textData = data["text"];
-	
+	var textData = data["text"];	
 	# No translation?
 	if textData is String:	
-		textSquare.text = data["text"];
-		
-	# Translated text:
-	elif textData is Dictionary:
-		
+		textSquare.text = data["text"];		
+	# Translated name:
+	elif textData is Dictionary:		
 		# English by default
 		if textData.has("en_US"):
 			textSquare.text = textData["en_US"];
 		# Otherwise, use first found locale
 		else:
 			textSquare.text = textData[textData.keys()[0]]
+			
+	var nameData = data["speakerName"]
+	if nameData is String:	
+		speaker.text = data["text"];
+		
+	# Translated text:
+	elif nameData is Dictionary:
+				
+		# English by default
+		if nameData.has("en_US"):
+			speaker.text = nameData["en_US"];
+		# Otherwise, use first found locale
+		else:
+			speaker.text = nameData[textData.keys()[0]]
 	
 	if data.has("textures") == false:
 		return;
