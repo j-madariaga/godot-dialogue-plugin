@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfenxa4gecpl5"]
+
+[ext_resource type="Script" uid="uid://bkrmjem732827" path="res://addons/src/scripts/TranslationHolder.gd" id="1_fma6d"]
+
+[node name="TranslationHolder" type="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -852.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_fma6d")
+
+[node name="LocaleKey" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LocaleKey"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Locale key"
+
+[node name="KeyEdit" type="LineEdit" parent="LocaleKey"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RefreshButton" type="Button" parent="LocaleKey"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Refresh"
+
+[node name="TransTypes" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TransTypes"]
+layout_mode = 2
+text = "Names"
+
+[node name="Scroll" type="ScrollContainer" parent="TransTypes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NameKeys" type="VBoxContainer" parent="TransTypes/Scroll"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TransTypes"]
+layout_mode = 2
+text = "Text"
+
+[node name="Scroll2" type="ScrollContainer" parent="TransTypes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextKeys" type="VBoxContainer" parent="TransTypes/Scroll2"]
+layout_mode = 2

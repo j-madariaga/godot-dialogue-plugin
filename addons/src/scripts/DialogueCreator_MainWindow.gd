@@ -1,37 +1,49 @@
 @tool
 class_name DialogueCreator
-extends Control
+extends HBoxContainer
 
-@onready var dialogueDataScreen = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData
-@onready var dialogueBitList = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/DialogueBits/BitScroll/BitList
+@onready var dialogueDataScreen = $Organizer/DialogueCreator
+@onready var dialogueTranslationScreen = $Organizer/DialogueTranslator
 
-@onready var titleInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer/TitleEditText
-@onready var fileNameInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/FilenameContainer/FileNameTextEdit
-@onready var triggerChanceInput = $DialogueCreatorMainWindow/DialogueDataHolder/DialogueData/TitleContainer/TriggerChanceInput
+
+@onready var fileNameInput = $Organizer/DialogueCreator/DialogueDataHolder/DialogueData/FilenameContainer/FileNameTextEdit
+@onready var dialogueBitList = $Organizer/DialogueCreator/DialogueDataHolder/DialogueData/BitScroll/BitList
+@onready var translationList = $Organizer/DialogueTranslator/Scroll/TranslationHolder
 
 const OUTPUT_PATH = "addons/output/";
+
+const TRANSLATION_HOLDER_ARCH = preload("res://addons/src/scenes/TranslationHolder.tscn")
 const ENCRYPTED_OUTPUT_PATH = "addons/output_encrypted/";
 const TEXT_BIT_ARCH = preload("res://addons/src/scenes/DialogueTextEntry.tscn");
 const SPRITE_BIT_ARCH = preload("res://addons/src/scenes/DialogueSpriteEntry.tscn");
 const TRANS_BIT_ARCH = preload("res://addons/src/scenes/DialogueTransitionEntry.tscn");
 
 const FILE_INFO_ARCH = preload("res://addons/src/scenes/FileInfo.tscn");
-@onready var fileInfoList = $DialogueCreatorMainWindow/VBoxContainer/SaveHolder/FileScroll/FileList
+@onready var fileInfoList = $SideMenu/SaveHolder/FileScroll/FileList
 
-@onready var encryptToggle = $DialogueCreatorMainWindow/VBoxContainer/EncryptContainer/EncryptionToggle
-@onready var encryptKey = $DialogueCreatorMainWindow/VBoxContainer/EncryptContainer/KeyEdit
+@onready var encryptToggle = $SideMenu/EncryptContainer/EncryptionToggle
+@onready var encryptKey = $SideMenu/EncryptContainer/KeyEdit
 
 signal onFileImport(String);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	dialogueDataScreen.visible = false;
+	SwitchTab(0)
 	
 	ReadDialogues();
 	
 	onFileImport.connect(OnDialogueImport);
 	pass # Replace with function body.
 
+func SwitchTab(tabIdx):
+	dialogueDataScreen.visible = false;
+	dialogueTranslationScreen.visible = false;
+	match tabIdx:
+		0:
+			dialogueDataScreen.visible = true;
+		1:
+			dialogueTranslationScreen.visible = true;
+	
 
 func ReadDialogues():
 	
@@ -90,10 +102,6 @@ func OnDialogueImport(fileName : String):
 	var parsedData = JSON.parse_string(file.get_as_text());
 	file.close()
 
-	#
-	#titleInput.text = parsedData["title"];
-	#fileNameInput.text = fileName.trim_suffix(".dialogue");
-	#triggerChanceInput.text = str(parsedData["triggerChance"]);
 	
 	var bits = parsedData["dialogueBits"]
 	for b in bits:
@@ -116,8 +124,7 @@ func OnDialogueSave():
 		return;
 	
 	var dialogueData = {
-		"title" : titleInput.text,
-		"triggerChance" : int(triggerChanceInput.text),
+		"nameKeys" : {},
 		"dialogueBits" : []
 	}
 	
@@ -168,3 +175,10 @@ func AddTransitionBit(bitData := {}):
 	
 func AddAudioBit(bitData := {}):
 	pass;
+
+
+func AddTranslationHolder(data := {}):
+	var holder = TRANSLATION_HOLDER_ARCH.instantiate();
+	translationList.add_child(holder)
+	
+	return;

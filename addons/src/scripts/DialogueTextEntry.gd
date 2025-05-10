@@ -37,7 +37,7 @@ func Save(data := {}):
 	data["id"] = "TEXT";
 	data["speakerName"] = speaker.text;
 	data["rightSide"] = rightSideToggle.is_pressed();
-	data["text"] = textSquare.text;
+	data["text"]["en_US"] = textSquare.text;
 	
 	
 	var texData = {};
@@ -67,7 +67,22 @@ func Save(data := {}):
 func Load(data := {}):
 	speaker.text = data["speakerName"];
 	rightSideToggle.button_pressed = data["rightSide"];
-	textSquare.text = data["text"];
+	
+	var textData = data["text"];
+	
+	# No translation?
+	if textData is String:	
+		textSquare.text = data["text"];
+		
+	# Translated text:
+	elif textData is Dictionary:
+		
+		# English by default
+		if textData.has("en_US"):
+			textSquare.text = textData["en_US"];
+		# Otherwise, use first found locale
+		else:
+			textSquare.text = textData[textData.keys()[0]]
 	
 	if data.has("textures") == false:
 		return;
