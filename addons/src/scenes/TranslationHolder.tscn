@@ -25,11 +25,6 @@ text = "Locale key"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RefreshButton" type="Button" parent="LocaleKey"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Refresh"
-
 [node name="TransTypes" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3

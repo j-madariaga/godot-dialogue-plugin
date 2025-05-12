@@ -36,7 +36,7 @@ func OnDelete():
 func Save(data := {}) -> int:
 	data["id"] = "TEXT";
 	data["speakerName"] = {};
-	data["speakerName"]["en_US"] = speaker.text;
+	data["speakerName"] = speaker.text;
 	data["rightSide"] = rightSideToggle.is_pressed();
 	data["text"] = {};
 	
@@ -81,19 +81,7 @@ func Load(data := {}):
 		else:
 			textSquare.text = textData[textData.keys()[0]]
 			
-	var nameData = data["speakerName"]
-	if nameData is String:	
-		speaker.text = data["text"];
-		
-	# Translated text:
-	elif nameData is Dictionary:
-				
-		# English by default
-		if nameData.has("en_US"):
-			speaker.text = nameData["en_US"];
-		# Otherwise, use first found locale
-		else:
-			speaker.text = nameData[textData.keys()[0]]
+	speaker.text = data["speakerName"];
 	
 	if data.has("textures") == false:
 		return;

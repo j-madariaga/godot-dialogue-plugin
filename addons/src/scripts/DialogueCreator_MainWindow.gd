@@ -21,6 +21,7 @@ const TRANS_BIT_ARCH = preload("res://addons/src/scenes/DialogueTransitionEntry.
 
 const FILE_INFO_ARCH = preload("res://addons/src/scenes/FileInfo.tscn");
 @onready var fileInfoList = $SideMenu/SaveHolder/FileScroll/FileList
+@onready var tabs = $Organizer/TabBar
 
 @onready var encryptToggle = $SideMenu/EncryptContainer/EncryptionToggle
 @onready var encryptKey = $SideMenu/EncryptContainer/KeyEdit
@@ -37,6 +38,7 @@ func _ready():
 	pass # Replace with function body.
 
 func SwitchTab(tabIdx):
+	tabs.current_tab = tabIdx;
 	dialogueDataScreen.visible = false;
 	dialogueTranslationScreen.visible = false;
 	match tabIdx:
@@ -44,6 +46,9 @@ func SwitchTab(tabIdx):
 			dialogueDataScreen.visible = true;
 		1:
 			dialogueTranslationScreen.visible = true;
+			
+			
+	
 	
 
 func ReadDialogues():
@@ -100,8 +105,10 @@ func OnNewDialogue():
 
 func OnDialogueImport(fileName : String):
 
-	dialogueDataScreen.visible = true;
+	# Avoid reloading loaded file
 	fileNameInput.text = fileName.trim_suffix(".dialogue");
+	if fileName == fileNameInput.text:
+		return;
 	
 	if IsDialogueListEmpty() == false:
 		ClearDialogueList();
@@ -117,7 +124,7 @@ func OnDialogueImport(fileName : String):
 
 	var locales = ["en_US"];
 	if parsedData.has("locales"):
-		locales = parsedData["locales"];		
+		locales = parsedData["locales"];
 		for l in locales:
 			AddTranslationHolder(l)
 
@@ -128,9 +135,7 @@ func OnDialogueImport(fileName : String):
 		match b["id"]:
 			"TEXT":
 				AddTextBit(b);
-				if b["speakerName"] is Dictionary:
-					for l in locales:
-						AddNameToLocale(b["speakerName"][l], l)
+						
 				if b["text"] is Dictionary:
 					for l in locales:
 						AddTextToLocale(b["text"][l], l)
@@ -140,9 +145,14 @@ func OnDialogueImport(fileName : String):
 				AddAudioBit(b);
 			"TRANS":
 				AddTransitionBit(b);
-	
-
-	
+				
+	if parsedData.has("nameKeys"):
+		for n in parsedData["nameKeys"]:
+			for l in locales:
+				if parsedData["nameKeys"][n].has(l) == false:
+					AddNameToLocale("", l)
+				else:
+					AddNameToLocale(parsedData["nameKeys"][n][l], l)	
 	return;
 
 func AddTextToLocale(text : String, locale : String):
@@ -177,18 +187,47 @@ func OnDialogueSave():
 	for bit in dialogueBitList.get_children():
 		var data = {
 			"text" : {},
-			"speakerName" : {}
+			"speakerName" : ""
 		}
 		
 		var isText = bit.Save(data);
-		if isText:
+		if isText:			
 			for l : TranslationHolder in translationList.get_children():
 				var localeKey = l.localeInput.text;
 				data["text"][localeKey] = l.textList.get_child(textBitsCount).text;
-		
-			
+				
+				if data["speakerName"] != "":				
+					dialogueData["nameKeys"][data["speakerName"]] = {}
+					dialogueData["nameKeys"][data["speakerName"]]["en_US"] = data["speakerName"]
+				
+			textBitsCount += 1;
+	
 		
 		dialogueData["dialogueBits"].append(data);
+	
+	for key in dialogueData["nameKeys"]:
+		var firstTrans = translationList.get_child(0)
+		var searchID = firstTrans.GetChildIDByName(key)
+		
+		for l : TranslationHolder in translationList.get_children():
+			var locale = l.localeInput.text
+
+			var translatedName = l.GetNameByChildID(searchID);
+			
+			if translatedName != "":
+				dialogueData["nameKeys"][key][locale] = translatedName;
+		
+		
+	#for l : TranslationHolder in translationList.get_children():
+		#if l.localeInput.text == "en_US":
+			#continue;
+		#
+		#var localeKey = l.localeInput.text;
+		#for n in l.nameList.get_children():
+			#if n.placeholder_text == "KEEP_NAME" and n.text == "":
+				#continue;
+			
+
 
 	var jsonData = JSON.stringify(dialogueData, "\t");
 	
@@ -206,6 +245,7 @@ func OnDialogueSave():
 	file.close();
 	
 	ReadDialogues();
+	SwitchTab(0)
 	
 
 func AddTextBit(bitData := {}):
@@ -233,8 +273,40 @@ func AddAudioBit(bitData := {}):
 	pass;
 
 
-func AddTranslationHolder(localeKey : String = ""):
+func OnNewTranslation():
+	if translationList.get_child_count() == 0:
+		AddTranslationHolder();
+	
+	var firstHolder : TranslationHolder = translationList.get_child(0);
+	CloneEmptyTranslationHolder(firstHolder.nameList.get_child_count(), firstHolder.textList.get_child_count())
+	
+	return;
+
+func AddTranslationHolder(localeKey : String = "") -> TranslationHolder:
 	var holder : TranslationHolder = TRANSLATION_HOLDER_ARCH.instantiate();
 	translationList.add_child(holder)
 	holder.localeInput.text = localeKey;
-	return
+	return holder;
+	
+func CloneEmptyTranslationHolder(nameCount : int, textCount : int):
+	var holder = AddTranslationHolder();
+	
+	for n in nameCount:
+		holder.AddNameEntry("");
+		
+	for t in textCount:
+		holder.AddTextEntry("");
+
+func RefreshFromCreationTab():
+	
+	var firstTransTab : TranslationHolder = translationList.get_child(0);
+	for text in firstTransTab.textList.get_children():
+		text.queue_free()
+	
+	for entry in dialogueBitList.get_children():
+		if entry is TextEntryObj:
+			firstTransTab.AddTextEntry(entry.textSquare.text)
+			firstTransTab.AddNameEntry(entry.speaker.text)
+		else:
+			continue;
+	return;

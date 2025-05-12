@@ -175,10 +175,18 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_6df5w")
 
-[node name="AddTranslation" type="Button" parent="Organizer/DialogueTranslator"]
+[node name="ManageButtons" type="HBoxContainer" parent="Organizer/DialogueTranslator"]
+layout_mode = 2
+
+[node name="AddTranslation" type="Button" parent="Organizer/DialogueTranslator/ManageButtons"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Add translation"
+
+[node name="Refresh" type="Button" parent="Organizer/DialogueTranslator/ManageButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Refresh from creation tab"
 
 [node name="Scroll" type="ScrollContainer" parent="Organizer/DialogueTranslator"]
 layout_mode = 2
@@ -196,4 +204,5 @@ size_flags_vertical = 3
 [connection signal="button_up" from="Organizer/DialogueCreator/DialogueDataHolder/DialogueData/BitManager/AddSpriteBit" to="." method="AddSpriteBit"]
 [connection signal="button_up" from="Organizer/DialogueCreator/DialogueDataHolder/DialogueData/BitManager/AddTransitionButton" to="." method="AddTransitionBit"]
 [connection signal="button_up" from="Organizer/DialogueCreator/DialogueDataHolder/DialogueData/BitManager/AddAudioButton" to="." method="AddAudioBit"]
-[connection signal="button_up" from="Organizer/DialogueTranslator/AddTranslation" to="." method="AddTranslationHolder"]
+[connection signal="button_up" from="Organizer/DialogueTranslator/ManageButtons/AddTranslation" to="." method="OnNewTranslation"]
+[connection signal="button_up" from="Organizer/DialogueTranslator/ManageButtons/Refresh" to="." method="RefreshFromCreationTab"]
