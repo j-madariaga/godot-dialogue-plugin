@@ -87,6 +87,7 @@ tab_0/title = "Create"
 tab_1/title = "Translate"
 
 [node name="DialogueCreator" type="HBoxContainer" parent="Organizer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_6df5w")
