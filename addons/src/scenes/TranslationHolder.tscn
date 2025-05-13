@@ -29,24 +29,21 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TransTypes"]
-layout_mode = 2
-text = "Names"
-
 [node name="Scroll" type="ScrollContainer" parent="TransTypes"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 6.14
+horizontal_scroll_mode = 0
 
 [node name="NameKeys" type="VBoxContainer" parent="TransTypes/Scroll"]
 layout_mode = 2
-
-[node name="Label2" type="Label" parent="TransTypes"]
-layout_mode = 2
-text = "Text"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Scroll2" type="ScrollContainer" parent="TransTypes"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 8.64
 
 [node name="TextKeys" type="VBoxContainer" parent="TransTypes/Scroll2"]
 layout_mode = 2

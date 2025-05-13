@@ -13,6 +13,9 @@ func Load(data := {}, locale : String = "en_US"):
 	return
 
 func GetNameByChildID(id : int) -> String:
+	if id == -1:
+		return "";
+	
 	return nameList.get_child(id).text;
 		
 func GetChildIDByName(s : String) -> int:

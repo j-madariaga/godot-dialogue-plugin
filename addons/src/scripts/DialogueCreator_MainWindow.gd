@@ -124,11 +124,8 @@ func OnDialogueImport(fileName : String):
 	var locales = ["en_US"];
 	if parsedData.has("locales"):
 		locales = parsedData["locales"];
-		print("Locales in file: ", locales.size())
 		for l in locales:
 			AddTranslationHolder(l)
-
-	print("Translations: ", translationList.get_child_count())
 	
 	var bits = parsedData["dialogueBits"]
 	for b in bits:
@@ -154,9 +151,6 @@ func OnDialogueImport(fileName : String):
 					AddNameToLocale("", l)
 				else:
 					AddNameToLocale(parsedData["nameKeys"][n][l], l)	
-					
-	for l : TranslationHolder in translationList.get_children():
-		print(l.nameList.get_child_count())
 	
 	return;
 
@@ -198,12 +192,17 @@ func OnDialogueSave():
 		var isText = bit.Save(data);
 		if isText:			
 			for l : TranslationHolder in translationList.get_children():
-				var localeKey = l.localeInput.text;
-				data["text"][localeKey] = l.textList.get_child(textBitsCount).text;
 				
-				if data["speakerName"] != "":				
-					dialogueData["nameKeys"][data["speakerName"]] = {}
-					dialogueData["nameKeys"][data["speakerName"]]["en_US"] = data["speakerName"]
+				# Cannot fecth translation because it is not loaded. load from creation screen instead
+				if textBitsCount >= l.textList.get_child_count():
+					continue;
+				else:
+					var localeKey = l.localeInput.text;
+					data["text"][localeKey] = l.textList.get_child(textBitsCount).text;
+					
+					if data["speakerName"] != "":
+						dialogueData["nameKeys"][data["speakerName"]] = {}
+						dialogueData["nameKeys"][data["speakerName"]]["en_US"] = data["speakerName"]
 				
 			textBitsCount += 1;
 	
@@ -211,6 +210,7 @@ func OnDialogueSave():
 		dialogueData["dialogueBits"].append(data);
 	
 	for key in dialogueData["nameKeys"]:
+		print(key)
 		var firstTrans = translationList.get_child(0)
 		var searchID = firstTrans.GetChildIDByName(key)
 		
